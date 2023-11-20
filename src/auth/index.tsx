@@ -5,7 +5,8 @@ const Auth = () => {
 
     const navigate = useNavigate()
     const signInWithGoogle = async() =>{
-        const result = await signInWithPopup(auth, provider)
+        try {
+          const result = await signInWithPopup(auth, provider)
         const userInfo = {
             userID : result.user.uid,
             name : result.user.displayName,
@@ -15,6 +16,9 @@ const Auth = () => {
         localStorage.setItem("auth" , JSON.stringify(userInfo))
 
         navigate("/dashboard")
+        } catch (error) {
+          console.log(error)
+        }
     }
 
     
