@@ -11,8 +11,11 @@ const Auth = () => {
             userID : result.user.uid,
             name : result.user.displayName,
             profilePhoto : result.user.photoURL,
+            userEmail : result.user.email,
             isAuth : true
         }
+
+        
         localStorage.setItem("auth" , JSON.stringify(userInfo))
 
         navigate("/dashboard")
