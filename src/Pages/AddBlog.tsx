@@ -5,15 +5,27 @@ import "react-quill/dist/quill.bubble.css";
 import { CiCirclePlus, CiImageOn, CiVideoOn } from "react-icons/ci";
 import { PiUploadSimpleLight } from "react-icons/pi";
 import { useAddBlog } from "../hooks/useAddBlog";
-
+import { useUploadImage } from "../hooks/useUploadImage";
 function AddBlog() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
+  const [imageUpload , setImageUpload] =  useState<File | null>();
 
   const {addBlog } = useAddBlog()
+  const {uploadImage} = useUploadImage()
+
+  const handleImageUpload = (event : React.ChangeEvent<HTMLInputElement>) =>{
+    const target = event.target as HTMLInputElement & {
+      files : FileList
+    }
+    setImageUpload(target.files[0])
+  }
+
+  
 
   const onSubmitButton = () =>{
-    addBlog({title :"title1" , desc : "desc1" , view : 0 , img : "https://via.placeholder.com/600/771796"})
+    uploadImage({imageUpload})
+    // addBlog({title :"title1" , desc : "desc1" , view : 0 , img : "https://via.placeholder.com/600/771796"})
   }
    return (
     <Layout>
@@ -30,6 +42,7 @@ function AddBlog() {
 
           {open && (
             <div className="flex gap-1 absolute z-50    bg-slate-600 left-10 items-center">
+              <input type="file" id="image" onChange={handleImageUpload} />
               <button>
                 <CiImageOn
                   size={34}
