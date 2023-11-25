@@ -5,29 +5,30 @@ import "react-quill/dist/quill.bubble.css";
 import { CiCirclePlus, CiImageOn, CiVideoOn } from "react-icons/ci";
 import { PiUploadSimpleLight } from "react-icons/pi";
 import { useAddBlog } from "../hooks/useAddBlog";
-import { useUploadImage } from "../hooks/useUploadImage";
+
 function AddBlog() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
-  const [imageUpload , setImageUpload] =  useState<File | null>();
+  const [imageUpload, setImageUpload] = useState<File | null>();
 
-  const {addBlog } = useAddBlog()
-  const {uploadImage} = useUploadImage()
+  const { addBlog } = useAddBlog();
 
-  const handleImageUpload = (event : React.ChangeEvent<HTMLInputElement>) =>{
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement & {
-      files : FileList
-    }
-    setImageUpload(target.files[0])
-  }
+      files: FileList;
+    };
+    setImageUpload(target.files[0]);
+  };
 
-  
-
-  const onSubmitButton = () =>{
-    uploadImage({imageUpload})
-    // addBlog({title :"title1" , desc : "desc1" , view : 0 , img : "https://via.placeholder.com/600/771796"})
-  }
-   return (
+  const onSubmitButton = () => {
+    addBlog({
+      title: "Simple Way to Inspire Your Inner Innovator",
+      desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      view: 100,
+      img: imageUpload,
+    });
+  };
+  return (
     <Layout>
       <div className="container min-h-screen py-12 bg-slate-500">
         <input type="text" placeholder="title" />
@@ -70,8 +71,6 @@ function AddBlog() {
             onChange={setValue}
             placeholder="tell your story...."
           />
-
-          
         </div>
         <button onClick={onSubmitButton}>submit</button>
       </div>

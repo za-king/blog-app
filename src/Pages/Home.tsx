@@ -10,6 +10,7 @@ export const Home = () => {
           <div className="text-8xl  text-justify">
           <b>Hey Zaking Here!</b> Discover my stories and creative idea
           </div>
+          <br />
           <Hero/>
           <br />
           <Category/>
