@@ -13,9 +13,9 @@ type CommentProp = {
 const Comment = ({ comments }: CommentProp) => {
   return (
     <div>
-      {comments?.map((comment) => {
+      {comments?.map((comment ,index) => {
         return (
-          <div className="py-4">
+          <div className="py-4" key={index}>
             <div className="flex gap-2 my-2 items-center ">
               <img
                 src={comment.profilePhoto}

@@ -25,9 +25,9 @@ function AddBlog() {
 
   const onSubmitButton = () => {
     addBlog({
-      title: "4 Simple Way to Inspire Your Inner Innovator",
+      title: "5 Simple Way to Inspire Your Inner Innovator",
       desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-      view: 100,
+      view: 0,
       img: imageUpload,
       comments: [
         {
@@ -60,9 +60,9 @@ function AddBlog() {
   };
   return (
     <Layout>
-      <div className="container min-h-screen py-12 bg-slate-500">
-        <input type="text" placeholder="title" />
-        <div className="flex border relative">
+      <div className="container min-h-screen py-12 ">
+        <input type="text" placeholder="title" className="p-4 text-6xl border-none outline-none bg-transparent"/>
+        <div className="flex  relative">
           <button
             onClick={() => {
               setOpen(!open);
@@ -72,13 +72,13 @@ function AddBlog() {
           </button>
 
           {open && (
-            <div className="flex gap-1 absolute z-50    bg-slate-600 left-10 items-center">
-              <input type="file" id="image" onChange={handleImageUpload} />
+            <div className="flex gap-1 absolute z-50   left-10 h-full ">
+              <input type="file" id="image" onChange={handleImageUpload} style={{display : "none"}} />
               <button>
-                <CiImageOn
+                <label htmlFor="image"><CiImageOn
                   size={34}
                   className=" border-black rounded-full border-2 p-1 cursor-pointer"
-                />
+                /></label>
               </button>
               <button>
                 <PiUploadSimpleLight
@@ -95,14 +95,14 @@ function AddBlog() {
             </div>
           )}
           <ReactQuill
-            className="w-[100%]"
+            className="w-full border"
             theme="bubble"
             value={value}
             onChange={setValue}
             placeholder="tell your story...."
           />
         </div>
-        <button onClick={onSubmitButton}>submit</button>
+        <button onClick={onSubmitButton} className="px-6 py-2 m-10 bg-green-200 rounded">submit</button>
       </div>
     </Layout>
   );

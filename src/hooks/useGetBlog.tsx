@@ -7,16 +7,22 @@ import {
   onSnapshot,
   doc,
   getDocs,
-  getDoc
+  getDoc,
+  orderBy,
+  limit
 } from "firebase/firestore";
 import useGetUserInfo from "./useGetUserInfo";
+import { useAddBlog } from "./useAddBlog";
 
 export const useGetBlog = () => {
   const { userID } = useGetUserInfo();
   const [blogList, setBlogList] = useState<any[]>([]);
   const [allBlogList, setAllBlogList] = useState<any[]>([]);
+  const [allBlogListByView, setAllBlogListByView] = useState<any[]>([]);
   const [blogById , setBlogById] = useState<{} |any>({})
   const blogCollectionRef = collection(db, "blog");
+
+  const { updateViewBlog } = useAddBlog();
 
   const getBlogList = async () => {
     try {
@@ -51,6 +57,26 @@ export const useGetBlog = () => {
     setAllBlogList(docs)
   };
 
+  const getAllBlogByView = async () => {
+    try {
+    const q = query(blogCollectionRef, orderBy("view", "desc"), limit(5));
+    onSnapshot(q, (snapshot) => {
+      let docs: any[] = [];
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        const id = doc.id;
+
+        docs.push({ ...data, id });
+        
+      });
+
+      setAllBlogListByView(docs)
+    });
+    } catch (error) {
+      
+    }
+  };
+
 
   const getBlogById = async (id : string |undefined) => {
     
@@ -59,7 +85,10 @@ export const useGetBlog = () => {
       const docSnap = await getDoc(docRef );
       if (docSnap.exists()) {
         const data :any = docSnap.data()
+        updateViewBlog({view : data?.view , id})
         setBlogById(data)
+        
+
       } else {
         
         console.log("No such document!");
@@ -73,8 +102,8 @@ export const useGetBlog = () => {
   useEffect(() => {
     getBlogList();
     getAllBlog();
-    
+    getAllBlogByView()
   }, []);
 
-  return { blogList , allBlogList ,getBlogById ,blogById};
+  return { blogList , allBlogList ,getBlogById ,blogById ,allBlogListByView};
 };

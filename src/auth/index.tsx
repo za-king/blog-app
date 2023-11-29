@@ -2,6 +2,7 @@ import { auth, provider } from "../config/firebase-config";
 import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
+import { Layout } from "../components/Layout";
 const Auth = () => {
   const navigate = useNavigate();
   const signInWithGoogle = async () => {
@@ -24,19 +25,21 @@ const Auth = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
-      <div className="border-2 rounded-lg p-12 text-center">
-        <p className="text-xl font-bold">Sign In With Goole to Continue</p>
+    <Layout>
+      <div className="flex justify-center items-center min-h-screen ">
+        <div className="border-2 rounded-lg p-12 text-center shadow-md">
+          <p className="text-xl font-bold">Sign In With Goole to Continue</p>
 
-        <button
-          className="flex items-center gap-2 border rounded p-4 mx-auto my-4"
-          onClick={signInWithGoogle}
-        >
-          <FcGoogle />
-          Sign In With Google
-        </button>
+          <button
+            className="flex items-center gap-2 border rounded p-4 mx-auto my-4"
+            onClick={signInWithGoogle}
+          >
+            <FcGoogle />
+            Sign In With Google
+          </button>
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 
