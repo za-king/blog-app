@@ -25,14 +25,15 @@ export const useGetBlog = () => {
   const { updateViewBlog } = useAddBlog();
 
   const getBlogList = async () => {
+    const blogCollectionByIDRef = collection(db, "blog");
     try {
-      const dataquery = query(blogCollectionRef, where("userID", "==", userID));
+      const dataquery = query(blogCollectionByIDRef, where(`user.userID`, "==", userID));
       onSnapshot(dataquery, (snapshot) => {
         let docs: any[] = [];
         snapshot.forEach((doc) => {
           const data = doc.data();
           const id = doc.id;
-
+          
           docs.push({ ...data, id });
         });
 
