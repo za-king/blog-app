@@ -26,8 +26,8 @@ function Dashboard() {
 
   return (
     <Layout>
-      <div className="min-h-screen max-h-full py-12">
-        <div className="container grid grid-cols-4 justify-items-center">
+      <div className=" min-h-screen max-h-full py-12">
+        <div className="md:container grid grid-cols-1 md:grid-cols-4  justify-items-center">
           <div className="  ">
             <img src={profilePhoto} alt="" className="rounded-full" />
             {name}
@@ -50,7 +50,7 @@ function Dashboard() {
             </div>
           </div>
           <div className="col-span-3">
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
               {blogList?.map((item) => {
                 return <Card datas={item} />;
               })}

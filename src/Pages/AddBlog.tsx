@@ -56,6 +56,7 @@ function AddBlog() {
         },
       ],
       user: { userID, profilePhoto, userEmail, name },
+      category : "food"
     });
   };
   return (

@@ -15,6 +15,7 @@ type UseAddBlogProp = {
   title: string;
   view: number;
   img: File | null | undefined;
+  category:string
   comments: {
     userID: string;
     profilePhoto: string;
@@ -45,6 +46,7 @@ export const useAddBlog = () => {
     img,
     comments,
     user,
+    category
   }: UseAddBlogProp) => {
     if (img == null) return;
     const uploadImageRef = ref(storage, `images/${img.name + v4()}`);
@@ -52,12 +54,14 @@ export const useAddBlog = () => {
       getDownloadURL(snapshot.ref).then((url: string) => {
         addDoc(blogCollectionRef, {
           title,
+          
           desc,
           img: url,
           view,
           createdAt: serverTimestamp(),
           comments,
           user,
+          category
         });
       });
     });

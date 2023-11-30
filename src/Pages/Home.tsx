@@ -8,7 +8,7 @@ export const Home = () => {
   return (
     <Layout>
       <div className="min-h-screen ">
-        <div className="container py-12">
+        <div className="lg:container py-12">
           <div className="text-8xl  text-justify">
             <b>Hey Zaking Here!</b> Discover my stories and creative idea
           </div>
@@ -17,7 +17,7 @@ export const Home = () => {
           <br />
           <Category />
           <br />
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
             <div className="col-span-2">
               <RecentPost />
             </div>
