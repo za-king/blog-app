@@ -12,7 +12,6 @@ function Dashboard() {
   const { name, profilePhoto } = useGetUserInfo();
   const { blogList } = useGetBlog();
 
-  console.log(blogList);
   const navigate = useNavigate();
   const signOutWithGoogle = async () => {
     try {

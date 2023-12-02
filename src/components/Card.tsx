@@ -1,5 +1,4 @@
 import { useDeleteBlog } from "../hooks/useDeleteBlog";
-
 type CardProp = {
   datas: any;
 };
