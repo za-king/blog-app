@@ -35,9 +35,8 @@ const RecentPost = () => {
             <div className="flex flex-col justify-around items-start ">
               <p className="text-xs font-bold text-gray-600">{blog.createdAt?.toDate().toDateString()} <span className={`${handleColor(blog.category)} text-base font-bold`}>{blog.category}</span></p>
               <p className="text-3xl font-bold">{blog.title}</p>
-              <div className=" w-60 max-h-32 truncate text-gray-600">
-                {blog.desc}
-              </div>
+              <div className=" w-60 max-h-32 truncate text-gray-600" dangerouslySetInnerHTML={{__html: blog?.desc}} />
+                
               <button
                 className="p-1 border-b-2 border-red-600 hover:border-green-600"
                 onClick={() => {

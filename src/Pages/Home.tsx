@@ -9,7 +9,7 @@ export const Home = () => {
     <Layout>
       <div className="min-h-screen ">
         <div className="lg:container py-12">
-          <div className="text-8xl  text-justify">
+          <div className="text-3xl md:text-8xl  text-justify">
             <b>Hey Zaking Here!</b> Discover my stories and creative idea
           </div>
           <br />

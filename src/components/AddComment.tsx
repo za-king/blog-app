@@ -10,7 +10,7 @@ const AddComment = ({id ,setComments ,handleSubmit} : UseAddCommentProp) => {
   
   return (
     <div className="py-12">
-      <div className="text-3xl font-bold">Comments</div>
+      
       <div className="flex gap-2 items-center mt-12 ">
         <textarea
           name=""

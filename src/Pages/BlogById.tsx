@@ -16,24 +16,23 @@ function BlogById() {
 
   const { id } = useParams();
 
+  const [comment, setComments] = useState("");
+  const { addCommentBlog } = useAddBlog();
 
-  const [comment , setComments] = useState("")
-  const {addCommentBlog} = useAddBlog()
- 
-  const {name,
-    profilePhoto,
-    userEmail,
-    userID,} = useGetUserInfo()
+  const { name, profilePhoto, userEmail, userID, isAuth } = useGetUserInfo();
 
   const commentInfo = {
-    comment,name ,profilePhoto , userEmail , userID
-  }
+    comment,
+    name,
+    profilePhoto,
+    userEmail,
+    userID,
+  };
 
-  const handleSubmit = () =>{
-
-    addCommentBlog({id :id , comments : commentInfo})
+  const handleSubmit = () => {
+    addCommentBlog({ id: id, comments: commentInfo });
     getBlogById(id);
-  }
+  };
 
   useEffect(() => {
     getBlogById(id);
@@ -43,11 +42,13 @@ function BlogById() {
 
   return (
     <Layout>
-      <div className="container min-h-screen py-12" >
-        <div className="grid grid-cols-2">
+      <div className="md:container min-h-screen py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2">
           <div className="flex flex-col justify-between">
-            <div className="text-7xl font-bold">{blogById?.title}</div>
-            <div className="flex gap-2 text-sm font-bold py-8">
+            <div className="text-3xl lg:text-7xl font-bold">
+              {blogById?.title}
+            </div>
+            <div className="grid grid-cols-1 gap-2 text-sm font-bold py-8">
               <img
                 src={blogById?.user?.profilePhoto}
                 alt="profile"
@@ -64,10 +65,22 @@ function BlogById() {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-12 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 py-12">
           <div className="col-span-2">
-            <div className="text-justify font-semibold">{blogById?.desc}</div>
-            <AddComment id={id} setComments={setComments} handleSubmit={handleSubmit}/>
+            <div className="text-justify font-semibold" dangerouslySetInnerHTML={{__html: blogById?.desc}} />
+            <div className="text-3xl font-bold mt-12">Comments</div>
+
+            {isAuth ? (
+              <AddComment
+                id={id}
+                setComments={setComments}
+                handleSubmit={handleSubmit}
+              />
+            ) : (
+              <a className="mt-12 underline hover:text-green-600 cursor-pointer" href="/login">
+                Login to a write a comment
+              </a>
+            )}
 
             <Comment comments={blogById?.comments} />
           </div>
