@@ -13,7 +13,7 @@ type CommentProp = {
 const Comment = ({ comments }: CommentProp) => {
   return (
     <div>
-      {comments?.map((comment ,index) => {
+      {comments?.reverse().map((comment ,index) => {
         return (
           <div className="py-4" key={index}>
             <div className="flex gap-2 my-2 items-center ">

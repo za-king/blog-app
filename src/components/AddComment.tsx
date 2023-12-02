@@ -1,4 +1,13 @@
-const AddComment = () => {
+
+type UseAddCommentProp = {
+  id : string | undefined
+  setComments : any
+  handleSubmit : any
+  
+}
+
+const AddComment = ({id ,setComments ,handleSubmit} : UseAddCommentProp) => {
+  
   return (
     <div className="py-12">
       <div className="text-3xl font-bold">Comments</div>
@@ -10,8 +19,9 @@ const AddComment = () => {
           rows={10}
           className=" border h-20 w-full p-1"
           placeholder="write comments....."
+          onChange={(e : any) =>{setComments(e.target.value)}}
         ></textarea>
-        <button className="bg-green-200 h-10 w-20 rounded">send</button>
+        <button className="bg-green-200 h-10 w-20 rounded" onClick={handleSubmit}>send</button>
       </div>
     </div>
   );

@@ -4,11 +4,14 @@ import {
   serverTimestamp,
   updateDoc,
   doc,
+  increment,
+  arrayUnion
 } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../config/firebase-config";
 import { v4 } from "uuid";
 import { db } from "../config/firebase-config";
+import { useGetBlog } from "./useGetBlog";
 
 type UseAddBlogProp = {
   desc: string;
@@ -36,8 +39,14 @@ type UseUpdateBlogProp = {
   id: string | undefined;
 };
 
+type UseAddCommentBlog = {
+  id : string | undefined
+  comments :{comment : string , name : string , profilePhoto : string , userEmail: string , userID : string}
+}
+
 export const useAddBlog = () => {
   const blogCollectionRef = collection(db, "blog");
+  
 
   const addBlog = async ({
     desc,
@@ -53,8 +62,7 @@ export const useAddBlog = () => {
     uploadBytes(uploadImageRef, img).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url: string) => {
         addDoc(blogCollectionRef, {
-          title,
-          
+          title,   
           desc,
           img: url,
           view,
@@ -70,12 +78,23 @@ export const useAddBlog = () => {
   const updateViewBlog = async ({ view, id }: UseUpdateBlogProp) => {
     try {
       const updateDocRef = doc(db, "blog", `${id}`);
-      console.log({id ,view})
-      await updateDoc(updateDocRef, { view: (view += 1) });
+      await updateDoc(updateDocRef, { view: increment(1) });
     } catch (error) {
       console.log(error);
     }
   };
 
-  return { addBlog, updateViewBlog };
+  const addCommentBlog = async ({id , comments} : UseAddCommentBlog) =>{
+    
+    try{
+      const updateDocRef = doc(db, "blog", `${id}`);
+      console.log({id ,comments})
+      await updateDoc(updateDocRef, { comments: arrayUnion(comments) });
+    }
+    catch(err) {
+      console.log(err)
+    }
+  }
+
+  return { addBlog, updateViewBlog ,addCommentBlog};
 };

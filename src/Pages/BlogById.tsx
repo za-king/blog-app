@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useGetBlog } from "../hooks/useGetBlog";
 
@@ -6,11 +6,34 @@ import { Layout } from "../components/Layout";
 import AddComment from "../components/AddComment";
 import Comment from "../components/Comment";
 import MostPopular from "../components/MostPopular";
+import { useState } from "react";
+import { useAddBlog } from "../hooks/useAddBlog";
+
+import useGetUserInfo from "../hooks/useGetUserInfo";
 
 function BlogById() {
   const { getBlogById, blogById } = useGetBlog();
 
   const { id } = useParams();
+
+
+  const [comment , setComments] = useState("")
+  const {addCommentBlog} = useAddBlog()
+ 
+  const {name,
+    profilePhoto,
+    userEmail,
+    userID,} = useGetUserInfo()
+
+  const commentInfo = {
+    comment,name ,profilePhoto , userEmail , userID
+  }
+
+  const handleSubmit = () =>{
+
+    addCommentBlog({id :id , comments : commentInfo})
+    getBlogById(id);
+  }
 
   useEffect(() => {
     getBlogById(id);
@@ -44,7 +67,7 @@ function BlogById() {
         <div className="grid grid-cols-3 gap-12 py-12">
           <div className="col-span-2">
             <div className="text-justify font-semibold">{blogById?.desc}</div>
-            <AddComment />
+            <AddComment id={id} setComments={setComments} handleSubmit={handleSubmit}/>
 
             <Comment comments={blogById?.comments} />
           </div>
