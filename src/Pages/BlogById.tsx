@@ -38,7 +38,7 @@ function BlogById() {
     getBlogById(id);
   }, []);
 
-  console.log(blogById);
+  
 
   return (
     <Layout>

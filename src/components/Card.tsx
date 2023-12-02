@@ -1,10 +1,9 @@
 import { useDeleteBlog } from "../hooks/useDeleteBlog";
-import { useNavigate } from "react-router-dom";
+
 type CardProp = {
   datas: any;
 };
 const Card: React.FC<CardProp> = ({ datas }) => {
-  const navigate = useNavigate()
   const { deleteBlog } = useDeleteBlog();
   const handleDeleteBlog = (id: any) => {
     deleteBlog({ id });

@@ -1,4 +1,4 @@
-import React from "react";
+
 import { useGetCategories } from "../hooks/useGetCategories";
 
 const Category = () => {

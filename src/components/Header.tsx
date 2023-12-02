@@ -4,7 +4,7 @@ import useGetUserInfo from "../hooks/useGetUserInfo";
 export const Header = () => {
   const [openSidebar, setOpenSidebar] = useState(false);
 
-  const { name, profilePhoto, userID, isAuth, userEmail } = useGetUserInfo();
+  const { name, isAuth,} = useGetUserInfo();
 
   const handleOpenSidebar = () => {
     setOpenSidebar(!openSidebar);

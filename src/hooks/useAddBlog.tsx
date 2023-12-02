@@ -11,7 +11,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../config/firebase-config";
 import { v4 } from "uuid";
 import { db } from "../config/firebase-config";
-import { useGetBlog } from "./useGetBlog";
+
 
 type UseAddBlogProp = {
   desc: string;
@@ -88,7 +88,7 @@ export const useAddBlog = () => {
     
     try{
       const updateDocRef = doc(db, "blog", `${id}`);
-      console.log({id ,comments})
+     
       await updateDoc(updateDocRef, { comments: arrayUnion(comments) });
     }
     catch(err) {
