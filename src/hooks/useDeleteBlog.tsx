@@ -1,9 +1,7 @@
 import { db } from "../config/firebase-config";
 import { collection, deleteDoc, doc } from "firebase/firestore";
 
-type UseDeleteBlogProp = {
-  id: any;
-};
+
 
 export const useDeleteBlog = () => {
   const deleteBlog = async ( {id} : any) => {

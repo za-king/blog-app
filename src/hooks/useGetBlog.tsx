@@ -104,7 +104,7 @@ export const useGetBlog = () => {
     getBlogList();
     getAllBlog();
     getAllBlogByView()
-  }, []);
+  }, [getAllBlogByView, getBlogList]);
 
   return { blogList , allBlogList ,getBlogById ,blogById ,allBlogListByView};
 };
