@@ -36,7 +36,7 @@ function BlogById() {
 
   useEffect(() => {
     getBlogById(id);
-  }, [getBlogById, id]);
+  }, []);
 
   
 
