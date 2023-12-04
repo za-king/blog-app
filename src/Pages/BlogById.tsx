@@ -67,7 +67,7 @@ function BlogById() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 py-12">
           <div className="col-span-2">
-            <div className="text-justify font-semibold" dangerouslySetInnerHTML={{__html: blogById?.desc}} />
+            <div className="text-justify font-semibold prose" dangerouslySetInnerHTML={{__html: blogById?.desc}} />
             <div className="text-3xl font-bold mt-12">Comments</div>
 
             {isAuth ? (

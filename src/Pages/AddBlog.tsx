@@ -6,6 +6,9 @@ import { CiCirclePlus, CiImageOn, CiVideoOn } from "react-icons/ci";
 import { PiUploadSimpleLight } from "react-icons/pi";
 import useGetUserInfo from "../hooks/useGetUserInfo";
 import { useAddBlog } from "../hooks/useAddBlog";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function AddBlog() {
   const [open, setOpen] = useState(false);
@@ -19,7 +22,7 @@ function AddBlog() {
   const { userID, userEmail, profilePhoto, name } = useGetUserInfo();
 
   const { addBlog } = useAddBlog();
-
+  const navigate = useNavigate()
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement & {
       files: FileList;
@@ -31,17 +34,59 @@ function AddBlog() {
     setCategory(e.target.value);
   };
 
+
+  const notifySucc = () =>{
+    toast.success('🦄 blog upload', {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
+  }
+
+  const notifyWarn = () =>{
+    toast.warn('🦄 blog field still empty', {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
+  }
+
   const onSubmitButton = () => {
-    addBlog({
-      title: title,
-      desc: value,
-      view: 0,
-      img: imageUpload,
-      comments: [],
-      user: { userID, profilePhoto, userEmail, name },
-      category: category,
-    });
+
+    if(title !== "" && value !== "" && imageUpload !== null && category !== ""){
+      addBlog({
+        title: title,
+        desc: value,
+        view: 0,
+        img: imageUpload,
+        comments: [],
+        user: { userID, profilePhoto, userEmail, name },
+        category: category,
+      })
+      notifySucc()
+      navigate("/dashboard")
+      
+    }else{
+      notifyWarn()
+    }
+      
+    
+      
+    
+    
   };
+
+  
 
   
   return (
@@ -50,7 +95,7 @@ function AddBlog() {
         <input
           type="text"
           placeholder="title"
-          className="p-4 text-6xl border-none outline-none bg-transparent"
+          className="p-4 text-6xl border-none outline-none bg-transparent w-full"
           onChange={(e) => {
             setTitle(e.target.value);
           }}
@@ -166,10 +211,11 @@ function AddBlog() {
         </div>
         <button
           onClick={onSubmitButton}
-          className="px-6 py-2 m-10 bg-green-200 rounded"
+          className="px-6 py-2 m-10 bg-green-200 font-bold rounded hover:bg-green-400"
         >
           submit
         </button>
+        <ToastContainer />
       </div>
     </Layout>
   );
